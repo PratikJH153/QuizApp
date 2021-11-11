@@ -56,21 +56,25 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("Quiz App"),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Question(
-            _questions[_questionIndex]["questionText"],
-          ),
-          ...(_questions[_questionIndex]["answers"] as List<String>)
-              .map((answer) {
-            return Answer(
-              selectHandler: _answerQuestion,
-              answerText: answer,
-            );
-          }).toList()
-        ],
-      ),
+      body: _questionIndex < _questions.length
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Question(
+                  _questions[_questionIndex]["questionText"],
+                ),
+                ...(_questions[_questionIndex]["answers"] as List<String>)
+                    .map((answer) {
+                  return Answer(
+                    selectHandler: _answerQuestion,
+                    answerText: answer,
+                  );
+                }).toList()
+              ],
+            )
+          : const Center(
+              child: Text("ALL DONE!"),
+            ),
     );
   }
 }
